@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>es.UCLM.esi.ISO2.C01</groupId>
-    <artifactId>ejercicio03</artifactId>
+    <artifactId>ejercicio01</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Ejercicio03</name>
     <description>Uso de Plugins e Informes para Testing</description>
