@@ -8,7 +8,11 @@ public class RecomendadorActividades {
      * devuelve true si el usuario está sano y cumple con las condiciones básicas
      */
     public boolean usuarioValido(Usuario usuario) {
-        return usuario.isSano() && usuario.isCovidSuperado() && usuario.isTieneCartillaVacunacion();
+        boolean res = false;
+        if (usuario.isSano() && usuario.isCovidSuperado() && usuario.isTieneCartillaVacunacion()) {
+            res = true;
+        }
+        return res;
     }
 
     /**
