@@ -74,38 +74,67 @@ public class RecomendadorActividades {
         return "No hay recomendaciones específicas.";
     }
 
+    
     // Métodos auxiliares para evaluar las condiciones 
 
     private boolean esClimaNevado(PronosticoMeteorologico pronostico) {
-        return pronostico.getTemperatura() < 0
+        boolean resultado = false;
+    	if(pronostico.getTemperatura() < 0
                 && pronostico.getPorcentajeHumedadRelativa() < 15
-                && (pronostico.getPrecipitaciones() == Precipitaciones.nieve || pronostico.getPrecipitaciones() == Precipitaciones.lluvia);
+                && (pronostico.getPrecipitaciones() == Precipitaciones.nieve || pronostico.getPrecipitaciones() == Precipitaciones.lluvia)) {
+    		resultado = true;
+    	}
+    	return resultado;
     }
 
     private boolean esClimaEsquiable(PronosticoMeteorologico pronostico) {
-        return pronostico.getTemperatura() < 0
+        boolean resultado = false;
+    	
+    	if(pronostico.getTemperatura() < 0
                 && pronostico.getPorcentajeHumedadRelativa() < 15
-                && (pronostico.getPrecipitaciones() != Precipitaciones.lluvia || pronostico.getPrecipitaciones() != Precipitaciones.nieve) ;
+                && (pronostico.getPrecipitaciones() != Precipitaciones.lluvia || pronostico.getPrecipitaciones() != Precipitaciones.nieve)) {
+    		resultado = true;
+    	}
+    	return resultado;
     }
+    	
+    
 
     private boolean esClimaSenderismo(PronosticoMeteorologico pronostico) {
-        return pronostico.getTemperatura() >= 0 && pronostico.getTemperatura() < 15
-                && pronostico.getPrecipitaciones() != Precipitaciones.lluvia;
+        boolean resultado = false;
+    	if(pronostico.getTemperatura() >= 0 && pronostico.getTemperatura() < 15
+                && pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {
+    		resultado = true;
+    	}
+    	return resultado;
     }
 
+    
     private boolean esClimaTurismo(PronosticoMeteorologico pronostico) {
-        return pronostico.getTemperatura() >= 15 && pronostico.getTemperatura() < 25
+       boolean resultado = false;
+       if(pronostico.getTemperatura() >= 15 && pronostico.getTemperatura() < 25
                 && (pronostico.getPrecipitaciones() != Precipitaciones.lluvia && pronostico.getPrecipitaciones() != Precipitaciones.nubes)
-                && pronostico.getPorcentajeHumedadRelativa() <= 60;
+                && pronostico.getPorcentajeHumedadRelativa() <= 60) {
+    	   resultado = true;
+       }
+       return resultado;
     }
 
     private boolean esClimaCañas(PronosticoMeteorologico pronostico) {
-        return pronostico.getTemperatura() >= 25 && pronostico.getTemperatura() < 35
-                && pronostico.getPrecipitaciones() != Precipitaciones.lluvia;
+        boolean resultado = false;
+        if(pronostico.getTemperatura() >= 25 && pronostico.getTemperatura() < 35
+                && pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {
+        	resultado = true;
+        }
+        return resultado;
     }
 
     private boolean esClimaPlayaPiscina(PronosticoMeteorologico pronostico) {
-        return pronostico.getTemperatura() > 30
-                && pronostico.getPrecipitaciones() != Precipitaciones.lluvia;
+        boolean resultado = false;
+    	if(pronostico.getTemperatura() > 30
+                && pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {
+    		resultado = true;
+    	}
+    	return resultado;
     }
 }

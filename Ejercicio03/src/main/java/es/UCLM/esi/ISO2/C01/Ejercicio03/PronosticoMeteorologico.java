@@ -6,18 +6,23 @@ public class PronosticoMeteorologico {
     private int porcentajeHumedadRelativa;
     private Precipitaciones precipitaciones;
 
-    public PronosticoMeteorologico(int temperatura, int porcentajeHumedadRelativa, Precipitaciones precipitaciones) {
-        this.temperatura = temperatura;
-        this.porcentajeHumedadRelativa = porcentajeHumedadRelativa;
-        this.precipitaciones = precipitaciones;
+    // Constructor
+    public PronosticoMeteorologico(int temperatura, int porcentajeHumedadRelativa, Precipitaciones precipitaciones) throws Exception {
+        setTemperatura(temperatura);
+        setPorcentajeHumedadRelativa(porcentajeHumedadRelativa);
+        setPrecipitaciones(precipitaciones);
     }
 
     // Getters y Setters
+
     public int getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(int temperatura) {
+    public void setTemperatura(int temperatura) throws Exception {
+        if (temperatura < -100 || temperatura > 100) {
+            throw new Exception("La temperatura debe estar entre -100 y 100 grados.");
+        }
         this.temperatura = temperatura;
     }
 
@@ -25,7 +30,10 @@ public class PronosticoMeteorologico {
         return porcentajeHumedadRelativa;
     }
 
-    public void setPorcentajeHumedadRelativa(int porcentajeHumedadRelativa) {
+    public void setPorcentajeHumedadRelativa(int porcentajeHumedadRelativa) throws Exception {
+        if (porcentajeHumedadRelativa < 0 || porcentajeHumedadRelativa > 100) {
+            throw new Exception("El porcentaje de humedad relativa debe estar entre 0 y 100.");
+        }
         this.porcentajeHumedadRelativa = porcentajeHumedadRelativa;
     }
 
@@ -33,16 +41,12 @@ public class PronosticoMeteorologico {
         return precipitaciones;
     }
 
-    public void setPrecipitaciones(Precipitaciones precipitaciones) {
+    public void setPrecipitaciones(Precipitaciones precipitaciones) throws Exception {
+        if (precipitaciones == null) {
+            throw new Exception("El tipo de precipitaciones no puede ser nulo.");
+        }
         this.precipitaciones = precipitaciones;
     }
 
-    // Métodos auxiliares para el clima
-    public boolean esClimaNevado() {
-        return temperatura < 0 && porcentajeHumedadRelativa < 15 && (precipitaciones == Precipitaciones.nieve || precipitaciones == Precipitaciones.lluvia);
-    }
-
-    public boolean esClimaEsquiable() {
-        return temperatura < 0 && porcentajeHumedadRelativa < 15 && precipitaciones == null;
-    }
 }
+
