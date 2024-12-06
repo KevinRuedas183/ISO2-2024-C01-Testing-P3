@@ -88,19 +88,35 @@ public class EspacioDeOcio {
 
     // Métodos auxiliares
     public boolean esAforoEsquiDisponible() {
-        return aforoEsqui > 0;
+        boolean res = false;
+        if (aforoEsqui > 0) {
+            res = true;
+        }
+        return res;
     }
 
     public boolean esAforoSenderismoDisponible() {
-        return aforoSenderismo > 0;
+        boolean res = false;
+        if (aforoSenderismo > 0) {
+            res = true;
+        }
+        return res;
     }
 
-    public boolean esAforoEstablecimientosDisponible() {
-        return aforoEstablecimientos > 0;
+    public boolean esAforoEstablecimientosDisponible() {        
+        boolean res = false;
+        if (aforoEstablecimientos > 0) {
+            res = true;
+        }
+        return res;
     }
 
     public boolean esAforoPiscinaDisponible() {
-        return aforoPiscina > 0;
+        boolean res = false;
+        if (aforoPiscina > 0) {
+            res = true;
+        }
+        return res;
     }
 
     public boolean tieneRestricciones() {
