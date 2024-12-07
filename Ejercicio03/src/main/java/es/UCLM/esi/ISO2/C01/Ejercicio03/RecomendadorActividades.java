@@ -81,11 +81,43 @@ public class RecomendadorActividades {
     
     // Métodos auxiliares para evaluar las condiciones 
 
+    private boolean PrecipitacionesNieveLLuvia(PronosticoMeteorologico pronostico) {
+    	boolean resultado = false;
+    	if(pronostico.getPrecipitaciones() == Precipitaciones.nieve || pronostico.getPrecipitaciones() == Precipitaciones.lluvia) {
+    		resultado = true;
+    	}
+    	return resultado;
+    }
+    
+    private boolean NoPrecipitacionesNieveLLuvia(PronosticoMeteorologico pronostico) {
+    	boolean resultado = false;
+    	if(pronostico.getPrecipitaciones() != Precipitaciones.nieve || pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {
+    		resultado = true;
+    	}
+    	return resultado;
+    }
+    
+    private boolean NoPrecipitacionesNubesLLuvia(PronosticoMeteorologico pronostico) {
+    	boolean resultado = false;
+    	if(pronostico.getPrecipitaciones() != Precipitaciones.nubes || pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {
+    		resultado = true;
+    	}
+    	return resultado;
+    }
+    
+    private boolean TemperaturaTurismo(PronosticoMeteorologico pronostico) {
+    	boolean resultado = false;
+    	if(pronostico.getTemperatura() >= 15 && pronostico.getTemperatura() < 25) {
+    		resultado = true;
+    	}
+    	return resultado;
+    }
+    
     private boolean esClimaNevado(PronosticoMeteorologico pronostico) {
         boolean resultado = false;
     	if(pronostico.getTemperatura() < 0
                 && pronostico.getPorcentajeHumedadRelativa() < 15
-                && (pronostico.getPrecipitaciones() == Precipitaciones.nieve || pronostico.getPrecipitaciones() == Precipitaciones.lluvia)) {
+                && PrecipitacionesNieveLLuvia(pronostico)){
     		resultado = true;
     	}
     	return resultado;
@@ -96,7 +128,7 @@ public class RecomendadorActividades {
     	
     	if(pronostico.getTemperatura() < 0
                 && pronostico.getPorcentajeHumedadRelativa() < 15
-                && (pronostico.getPrecipitaciones() != Precipitaciones.lluvia || pronostico.getPrecipitaciones() != Precipitaciones.nieve)) {
+                && NoPrecipitacionesNieveLLuvia(pronostico)) {
     		resultado = true;
     	}
     	return resultado;
@@ -116,8 +148,8 @@ public class RecomendadorActividades {
     
     private boolean esClimaTurismo(PronosticoMeteorologico pronostico) {
        boolean resultado = false;
-       if(pronostico.getTemperatura() >= 15 && pronostico.getTemperatura() < 25
-                && (pronostico.getPrecipitaciones() != Precipitaciones.lluvia && pronostico.getPrecipitaciones() != Precipitaciones.nubes)
+       if(TemperaturaTurismo(pronostico)
+                && (NoPrecipitacionesNubesLLuvia(pronostico))
                 && pronostico.getPorcentajeHumedadRelativa() <= 60) {
     	   resultado = true;
        }
