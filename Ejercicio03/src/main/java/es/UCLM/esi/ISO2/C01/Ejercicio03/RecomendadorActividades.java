@@ -1,4 +1,4 @@
-package repaso1;
+package es.UCLM.esi.ISO2.C01.Ejercicio03;
 
 public class RecomendadorActividades {
 
@@ -7,7 +7,7 @@ public class RecomendadorActividades {
      * parámetro: Usuario que se evalúa
      * devuelve true si el usuario está sano y cumple con las condiciones básicas
      */
-    public boolean usuarioValido(Usuario usuario) {
+    public static boolean usuarioValido(Usuario usuario) {
         boolean res = false;
         if (usuario.isSano() && usuario.isCovidSuperado() && usuario.isTieneCartillaVacunacion()) {
             res = true;
@@ -113,7 +113,7 @@ public class RecomendadorActividades {
     	return resultado;
     }
     
-    private boolean esClimaNevado(PronosticoMeteorologico pronostico) {
+    boolean esClimaNevado(PronosticoMeteorologico pronostico) {
         boolean resultado = false;
     	if(pronostico.getTemperatura() < 0
                 && pronostico.getPorcentajeHumedadRelativa() < 15
