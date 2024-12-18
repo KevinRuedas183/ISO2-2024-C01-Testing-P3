@@ -25,7 +25,8 @@ public class RecomendadorActividadesTest {
 		 * pronostico
 		 */
 		// nota test --> DNI en usuario es un int, por lo que muchos numeros son mas grandes de lo que abarca
-		usuario = new Usuario(10504000, 'A', false, false, false, false);
+		usuario = new Usuario(10504000, 'A', true, true, true, true);
+		
 		pronostico = new PronosticoMeteorologico(0, 0, Precipitaciones.lluvia);
 		espacio = new EspacioDeOcio(0, 0, false, 0, 0, pronostico);
 		recomendador = new RecomendadorActividades();
@@ -67,13 +68,15 @@ public class RecomendadorActividadesTest {
 		usuario.setTieneCartillaVacunacion(true);
 
 		// Configuración del pronóstico (clima adecuado para senderismo)
-		pronostico.setTemperatura(15); // 15 grados Celsius
-		pronostico.setPorcentajeHumedadRelativa(50);
-		pronostico.setPrecipitaciones(Precipitaciones.nubes);
+		// Configuración del pronóstico
+		pronostico.setTemperatura(1);
+		// no hace falta humedad relativa ya que lo tenemos en el before inicializado
+		pronostico.setPrecipitaciones(Precipitaciones.nubes); // nubes = no precipitaciones
+
 		espacio.setPronostico(pronostico);
 
 		// Configuración del espacio (aforo disponible para senderismo)
-		espacio.setAforoSenderismo(10);
+		espacio.setAforoSenderismo(5);
 
 		// Ejecución del método a testear
 		String resultado = recomendador.recomendacionActividad(usuario, espacio);
@@ -114,7 +117,7 @@ public class RecomendadorActividadesTest {
 		// Configuración del pronóstico
 		pronostico.setTemperatura(-10);
 		pronostico.setPorcentajeHumedadRelativa(10);
-		pronostico.setPrecipitaciones(Precipitaciones.nubes); // nubes = no precipitaciones
+		pronostico.setPrecipitaciones(Precipitaciones.nieve); 
 		espacio.setPronostico(pronostico);
 
 		boolean actual = recomendador.esClimaNevado(pronostico);
@@ -140,8 +143,8 @@ public class RecomendadorActividadesTest {
 	@Test
 	public void esClimaEsquiableTRUE() throws Exception {
 		// Configuración del pronóstico
-		pronostico.setTemperatura(10);
-		pronostico.setPorcentajeHumedadRelativa(25);
+		pronostico.setTemperatura(-1);
+		pronostico.setPorcentajeHumedadRelativa(5);
 		pronostico.setPrecipitaciones(Precipitaciones.nubes); // nubes = no precipitaciones
 		espacio.setPronostico(pronostico);
 
@@ -170,9 +173,9 @@ public class RecomendadorActividadesTest {
 	@Test
 	public void esClimaSenderismoTRUE() throws Exception {
 		// Configuración del pronóstico
-		pronostico.setTemperatura(-1);
+		pronostico.setTemperatura(1);
 		// no hace falta humedad relativa ya que lo tenemos en el before inicializado
-		pronostico.setPrecipitaciones(Precipitaciones.lluvia); // nubes = no precipitaciones
+		pronostico.setPrecipitaciones(Precipitaciones.nubes); // nubes = no precipitaciones
 
 		espacio.setPronostico(pronostico);
 
@@ -191,7 +194,7 @@ public class RecomendadorActividadesTest {
 	@Test
 	public void esClimaTurismoTRUE() throws Exception {
 		// Configuración del pronóstico
-		pronostico.setTemperatura(-10);
+		pronostico.setTemperatura(20);
 		pronostico.setPorcentajeHumedadRelativa(10);
 		pronostico.setPrecipitaciones(Precipitaciones.nieve); // nubes = no precipitaciones
 		espacio.setPronostico(pronostico);
@@ -235,4 +238,122 @@ public class RecomendadorActividadesTest {
 		assertEquals(actual, expected);
 
 	}
+	
+	
+	@Test
+	public void esAforoEsquiDisponibleTRUE() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoEsqui(30);
+
+
+		boolean actual = espacio.esAforoEsquiDisponible();
+		boolean expected = true;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void esAforoEsquiDisponibleFalse() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoEsqui(0);
+
+
+		boolean actual = espacio.esAforoEsquiDisponible();
+		boolean expected = false;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void esAforoEstablecimientosDisponibleTRUE() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoEstablecimientos(30);
+
+
+		boolean actual = espacio.esAforoEstablecimientosDisponible();
+		boolean expected = true;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void esAforoEstablecimientosDisponibleFalse() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoEstablecimientos(0);
+
+
+		boolean actual = espacio.esAforoEstablecimientosDisponible();
+		boolean expected = false;
+		assertEquals(actual, expected);
+	}
+	
+	
+	@Test
+	public void esAforoSenderismoDisponibleTRUE() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoSenderismo(30);
+
+
+		boolean actual = espacio.esAforoSenderismoDisponible();
+		boolean expected = true;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void esAforoSenderismoDisponibleFalse() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoSenderismo(0);
+
+
+		boolean actual = espacio.esAforoSenderismoDisponible();
+		boolean expected = false;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void esAforoPiscinaDisponibleTRUE() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoPiscina(30);
+
+
+		boolean actual = espacio.esAforoPiscinaDisponible();
+		boolean expected = true;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void esAforoPiscinaDisponibleFalse() throws Exception {
+		// Configuración del pronóstico
+		espacio.setAforoPiscina(0);
+
+
+		boolean actual = espacio.esAforoPiscinaDisponible();
+		boolean expected = false;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void PuedeIrseCañas() throws Exception {
+		// Configuración del pronóstico
+		pronostico.setTemperatura(30);
+		pronostico.setPrecipitaciones(Precipitaciones.nieve);
+		espacio.setPronostico(pronostico);
+		espacio.setAforoEstablecimientos(30);
+		
+		String actual=recomendador.recomendacionActividad(usuario, espacio);
+		String expected = "Puede irse de cañas.";
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void NoPuedeIrseCañas() throws Exception {
+		// Configuración del pronóstico
+		pronostico.setTemperatura(30);
+		pronostico.setPrecipitaciones(Precipitaciones.nieve);
+		espacio.setPronostico(pronostico);
+		espacio.setAforoEstablecimientos(0);
+		
+		String actual=recomendador.recomendacionActividad(usuario, espacio);
+		String expected = "No puede irse de cañas, aforo completo.";
+		assertEquals(actual, expected);
+	}
+	
+	
 }
