@@ -121,6 +121,20 @@ public class RecomendadorActividadesTest {
 		boolean expected = true;
 		assertEquals(actual, expected);
 	}
+	
+	/* test 7 (salida a false) */
+	@Test
+	public void esClimaNevadoFALSE() throws Exception {
+		// Configuración del pronóstico
+		pronostico.setTemperatura(10);
+		pronostico.setPorcentajeHumedadRelativa(25);
+		pronostico.setPrecipitaciones(Precipitaciones.nubes); // nubes = no precipitaciones
+		espacio.setPronostico(pronostico);
+
+		boolean actual = recomendador.esClimaNevado(pronostico);
+		boolean expected = false;
+		assertEquals(actual, expected);
+	}
 
 	/* test 8 (salida a true) */
 	@Test
@@ -133,6 +147,21 @@ public class RecomendadorActividadesTest {
 
 		boolean actual = recomendador.esClimaEsquiable(pronostico);
 		boolean expected = true;
+		assertEquals(actual, expected);
+
+	}
+
+	/* test 8 (salida a false) */
+	@Test
+	public void esClimaEsquiableFALSE() throws Exception {
+		// Configuración del pronóstico
+		pronostico.setTemperatura(10);
+		pronostico.setPorcentajeHumedadRelativa(25);
+		pronostico.setPrecipitaciones(Precipitaciones.nubes); // nubes = no precipitaciones
+		espacio.setPronostico(pronostico);
+
+		boolean actual = recomendador.esClimaEsquiable(pronostico);
+		boolean expected = false;
 		assertEquals(actual, expected);
 
 	}
