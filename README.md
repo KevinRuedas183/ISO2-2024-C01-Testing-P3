@@ -5,7 +5,7 @@ Repositorio usado para el testing del Problema 3 de ISO-II.
 ## ALUMNOS:  
 KEVIN-RAUL: hacer programa  
 ALEX-JAIME: implementar pruebas  
-ROSPI-SAMUEL: generar pruebas  
+A.ROSPI-SAMUEL: generar pruebas  
 
 ## GRUPO:  
 Lab_C1
