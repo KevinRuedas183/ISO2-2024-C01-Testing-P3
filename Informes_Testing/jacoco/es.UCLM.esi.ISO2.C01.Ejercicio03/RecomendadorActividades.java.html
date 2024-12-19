@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecomendadorActividades.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ejercicio03</a> &gt; <a href="index.source.html" class="el_package">es.UCLM.esi.ISO2.C01.Ejercicio03</a> &gt; <span class="el_source">RecomendadorActividades.java</span></div><h1>RecomendadorActividades.java</h1><pre class="source lang-java linenums">package es.UCLM.esi.ISO2.C01.Ejercicio03;
+
+<span class="fc" id="L3">public class RecomendadorActividades {</span>
+
+    /**
+     * Verifica si el usuario está sano y puede realizar actividades
+     * parámetro: Usuario que se evalúa
+     * devuelve true si el usuario está sano y cumple con las condiciones básicas
+     */
+    public static boolean usuarioValido(Usuario usuario) {
+<span class="fc" id="L11">        boolean res = false;</span>
+<span class="pc bpc" id="L12" title="2 of 6 branches missed.">        if (usuario.isSano() &amp;&amp; usuario.isCovidSuperado() &amp;&amp; usuario.isTieneCartillaVacunacion()) {</span>
+<span class="fc" id="L13">            res = true;</span>
+        }
+<span class="fc" id="L15">        return res;</span>
+    }
+
+    /**
+     * Genera una recomendación de actividad para el usuario según las condiciones
+     * parámetro: usuario Usuario que se evalúa
+     * parámetro: espacio Espacio de ocio donde se evaluará la actividad
+     * devuelve la actividad recomendada según las condiciones
+     */
+    public String recomendacionActividad(Usuario usuario, EspacioDeOcio espacio) {
+        // Verifica si el usuario cumple las condiciones básicas
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (!usuarioValido(usuario)) {</span>
+<span class="nc" id="L27">            return &quot;No puede realizar ninguna actividad.&quot;;</span>
+        }
+
+        // Obtene las condiciones meteorológicas del espacio
+<span class="fc" id="L31">        PronosticoMeteorologico pronostico = espacio.getPronostico();</span>
+
+        // Analiza condiciones específicas basadas en el clima
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (esClimaNevado(pronostico)) {</span>
+<span class="nc" id="L35">            return &quot;Quédese en casa.&quot;;</span>
+        }
+
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (esClimaEsquiable(pronostico)) {</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            if (espacio.getAforoEsqui() &gt; 0) {</span>
+<span class="nc" id="L40">                return &quot;Puede ir a esquiar.&quot;;</span>
+            } else {
+<span class="nc" id="L42">                return &quot;No se puede esquiar, aforo completo.&quot;;</span>
+            }
+        }
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (esClimaSenderismo(pronostico)) {</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">            if (espacio.getAforoSenderismo() &gt; 0) {</span>
+<span class="fc" id="L48">                return &quot;Puede ir a hacer senderismo.&quot;;</span>
+            } else {
+<span class="nc" id="L50">                return &quot;No puede hacer senderismo, aforo completo.&quot;;</span>
+            }
+        }
+
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (esClimaTurismo(pronostico)) {</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            if (!espacio.tieneRestricciones()) {</span>
+<span class="nc" id="L56">                return &quot;Puede ir a hacer turismo al aire libre.&quot;;</span>
+            } else {
+<span class="nc" id="L58">                return &quot;No puede hacer turismo, hay restricciones de confinamiento.&quot;;</span>
+            }
+        }
+
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (esClimaCañas(pronostico)) {</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            if (espacio.getAforoEstablecimientos() &gt; 0) {</span>
+<span class="fc" id="L64">                return &quot;Puede irse de cañas.&quot;;</span>
+            } else {
+<span class="fc" id="L66">                return &quot;No puede irse de cañas, aforo completo.&quot;;</span>
+            }
+        }
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (esClimaPlayaPiscina(pronostico)) {</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (espacio.getAforoPiscina() &gt; 0) {</span>
+<span class="nc" id="L72">                return &quot;Puede ir a la playa o a la piscina.&quot;;</span>
+            } else {
+<span class="nc" id="L74">                return &quot;No puede ir a la piscina, aforo completo.&quot;;</span>
+            }
+        }
+
+<span class="nc" id="L78">        return &quot;No hay recomendaciones específicas.&quot;;</span>
+    }
+
+    
+    // Métodos auxiliares para evaluar las condiciones 
+
+    private boolean PrecipitacionesNieveLLuvia(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L85">    	boolean resultado = false;</span>
+<span class="pc bpc" id="L86" title="3 of 4 branches missed.">    	if(pronostico.getPrecipitaciones() == Precipitaciones.nieve || pronostico.getPrecipitaciones() == Precipitaciones.lluvia) {</span>
+<span class="fc" id="L87">    		resultado = true;</span>
+    	}
+<span class="fc" id="L89">    	return resultado;</span>
+    }
+    
+    private boolean NoPrecipitacionesNieveLLuvia(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L93">    	boolean resultado = false;</span>
+<span class="pc bpc" id="L94" title="3 of 4 branches missed.">    	if(pronostico.getPrecipitaciones() != Precipitaciones.nieve || pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {</span>
+<span class="fc" id="L95">    		resultado = true;</span>
+    	}
+<span class="fc" id="L97">    	return resultado;</span>
+    }
+    
+    private boolean NoPrecipitacionesNubesLLuvia(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L101">    	boolean resultado = false;</span>
+<span class="pc bpc" id="L102" title="3 of 4 branches missed.">    	if(pronostico.getPrecipitaciones() != Precipitaciones.nubes || pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {</span>
+<span class="fc" id="L103">    		resultado = true;</span>
+    	}
+<span class="fc" id="L105">    	return resultado;</span>
+    }
+    
+    private boolean TemperaturaTurismo(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L109">    	boolean resultado = false;</span>
+<span class="pc bpc" id="L110" title="1 of 4 branches missed.">    	if(pronostico.getTemperatura() &gt;= 15 &amp;&amp; pronostico.getTemperatura() &lt; 25) {</span>
+<span class="fc" id="L111">    		resultado = true;</span>
+    	}
+<span class="fc" id="L113">    	return resultado;</span>
+    }
+    
+    boolean esClimaNevado(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L117">        boolean resultado = false;</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">    	if(pronostico.getTemperatura() &lt; 0</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">                &amp;&amp; pronostico.getPorcentajeHumedadRelativa() &lt; 15</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">                &amp;&amp; PrecipitacionesNieveLLuvia(pronostico)){</span>
+<span class="fc" id="L121">    		resultado = true;</span>
+    	}
+<span class="fc" id="L123">    	return resultado;</span>
+    }
+
+    boolean esClimaEsquiable(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L127">        boolean resultado = false;</span>
+    	
+<span class="fc bfc" id="L129" title="All 2 branches covered.">    	if(pronostico.getTemperatura() &lt; 0</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">                &amp;&amp; pronostico.getPorcentajeHumedadRelativa() &lt; 15</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">                &amp;&amp; NoPrecipitacionesNieveLLuvia(pronostico)) {</span>
+<span class="fc" id="L132">    		resultado = true;</span>
+    	}
+<span class="fc" id="L134">    	return resultado;</span>
+    }
+    	
+    
+
+     boolean esClimaSenderismo(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L140">        boolean resultado = false;</span>
+<span class="pc bpc" id="L141" title="1 of 4 branches missed.">    	if(pronostico.getTemperatura() &gt;= 0 &amp;&amp; pronostico.getTemperatura() &lt; 15</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">                &amp;&amp; pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {</span>
+<span class="fc" id="L143">    		resultado = true;</span>
+    	}
+<span class="fc" id="L145">    	return resultado;</span>
+    }
+
+    
+     boolean esClimaTurismo(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L150">       boolean resultado = false;</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">       if(TemperaturaTurismo(pronostico)</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">                &amp;&amp; (NoPrecipitacionesNubesLLuvia(pronostico))</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">                &amp;&amp; pronostico.getPorcentajeHumedadRelativa() &lt;= 60) {</span>
+<span class="fc" id="L154">    	   resultado = true;</span>
+       }
+<span class="fc" id="L156">       return resultado;</span>
+    }
+
+     boolean esClimaCañas(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L160">        boolean resultado = false;</span>
+<span class="pc bpc" id="L161" title="2 of 4 branches missed.">        if(pronostico.getTemperatura() &gt;= 25 &amp;&amp; pronostico.getTemperatura() &lt; 35</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">                &amp;&amp; pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {</span>
+<span class="fc" id="L163">        	resultado = true;</span>
+        }
+<span class="fc" id="L165">        return resultado;</span>
+    }
+
+     boolean esClimaPlayaPiscina(PronosticoMeteorologico pronostico) {
+<span class="fc" id="L169">        boolean resultado = false;</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">    	if(pronostico.getTemperatura() &gt; 30</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">                &amp;&amp; pronostico.getPrecipitaciones() != Precipitaciones.lluvia) {</span>
+<span class="fc" id="L172">    		resultado = true;</span>
+    	}
+<span class="fc" id="L174">    	return resultado;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

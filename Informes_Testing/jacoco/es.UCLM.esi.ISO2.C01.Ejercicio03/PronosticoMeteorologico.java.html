@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PronosticoMeteorologico.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ejercicio03</a> &gt; <a href="index.source.html" class="el_package">es.UCLM.esi.ISO2.C01.Ejercicio03</a> &gt; <span class="el_source">PronosticoMeteorologico.java</span></div><h1>PronosticoMeteorologico.java</h1><pre class="source lang-java linenums">package es.UCLM.esi.ISO2.C01.Ejercicio03;
+
+public class PronosticoMeteorologico {
+
+    private int temperatura;
+    private int porcentajeHumedadRelativa;
+    private Precipitaciones precipitaciones;
+
+    // Constructor
+<span class="fc" id="L10">    public PronosticoMeteorologico(int temperatura, int porcentajeHumedadRelativa, Precipitaciones precipitaciones) throws Exception {</span>
+<span class="fc" id="L11">        setTemperatura(temperatura);</span>
+<span class="fc" id="L12">        setPorcentajeHumedadRelativa(porcentajeHumedadRelativa);</span>
+<span class="fc" id="L13">        setPrecipitaciones(precipitaciones);</span>
+<span class="fc" id="L14">    }</span>
+
+    // Getters y Setters
+
+    public int getTemperatura() {
+<span class="fc" id="L19">        return temperatura;</span>
+    }
+
+    public void setTemperatura(int temperatura) throws Exception {
+<span class="pc bpc" id="L23" title="2 of 4 branches missed.">        if (temperatura &lt; -100 || temperatura &gt; 100) {</span>
+<span class="nc" id="L24">            throw new Exception(&quot;La temperatura debe estar entre -100 y 100 grados.&quot;);</span>
+        }
+<span class="fc" id="L26">        this.temperatura = temperatura;</span>
+<span class="fc" id="L27">    }</span>
+
+    public int getPorcentajeHumedadRelativa() {
+<span class="fc" id="L30">        return porcentajeHumedadRelativa;</span>
+    }
+
+    public void setPorcentajeHumedadRelativa(int porcentajeHumedadRelativa) throws Exception {
+<span class="pc bpc" id="L34" title="2 of 4 branches missed.">        if (porcentajeHumedadRelativa &lt; 0 || porcentajeHumedadRelativa &gt; 100) {</span>
+<span class="nc" id="L35">            throw new Exception(&quot;El porcentaje de humedad relativa debe estar entre 0 y 100.&quot;);</span>
+        }
+<span class="fc" id="L37">        this.porcentajeHumedadRelativa = porcentajeHumedadRelativa;</span>
+<span class="fc" id="L38">    }</span>
+
+    public Precipitaciones getPrecipitaciones() {
+<span class="fc" id="L41">        return precipitaciones;</span>
+    }
+
+    public void setPrecipitaciones(Precipitaciones precipitaciones) throws Exception {
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (precipitaciones == null) {</span>
+<span class="nc" id="L46">            throw new Exception(&quot;El tipo de precipitaciones no puede ser nulo.&quot;);</span>
+        }
+<span class="fc" id="L48">        this.precipitaciones = precipitaciones;</span>
+<span class="fc" id="L49">    }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

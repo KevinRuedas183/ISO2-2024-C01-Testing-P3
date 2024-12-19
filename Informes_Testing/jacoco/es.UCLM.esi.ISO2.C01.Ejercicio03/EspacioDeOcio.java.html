@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EspacioDeOcio.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ejercicio03</a> &gt; <a href="index.source.html" class="el_package">es.UCLM.esi.ISO2.C01.Ejercicio03</a> &gt; <span class="el_source">EspacioDeOcio.java</span></div><h1>EspacioDeOcio.java</h1><pre class="source lang-java linenums">package es.UCLM.esi.ISO2.C01.Ejercicio03;
+
+
+public class EspacioDeOcio {
+
+    private int aforoEsqui;
+    private int aforoSenderismo;
+    private boolean tieneRestriccionesConfinamiento;
+    private int aforoEstablecimientos;
+    private int aforoPiscina;
+    private PronosticoMeteorologico pronostico;
+
+    // Constructor
+    public EspacioDeOcio(int aforoEsqui, int aforoSenderismo, boolean tieneRestriccionesConfinamiento, 
+<span class="fc" id="L15">                         int aforoEstablecimientos, int aforoPiscina, PronosticoMeteorologico pronostico) throws Exception {</span>
+<span class="fc" id="L16">        setAforoEsqui(aforoEsqui);</span>
+<span class="fc" id="L17">        setAforoSenderismo(aforoSenderismo);</span>
+<span class="fc" id="L18">        setTieneRestriccionesConfinamiento(tieneRestriccionesConfinamiento);</span>
+<span class="fc" id="L19">        setAforoEstablecimientos(aforoEstablecimientos);</span>
+<span class="fc" id="L20">        setAforoPiscina(aforoPiscina);</span>
+<span class="fc" id="L21">        setPronostico(pronostico);</span>
+<span class="fc" id="L22">    }</span>
+
+    // Getters y Setters
+
+    public int getAforoEsqui() {
+<span class="nc" id="L27">        return aforoEsqui;</span>
+    }
+
+    public void setAforoEsqui(int aforoEsqui) throws Exception {
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (aforoEsqui &lt; 0) {</span>
+<span class="nc" id="L32">            throw new Exception(&quot;El aforo de esquí no puede ser negativo.&quot;);</span>
+        }
+<span class="fc" id="L34">        this.aforoEsqui = aforoEsqui;</span>
+<span class="fc" id="L35">    }</span>
+
+    public int getAforoSenderismo() {
+<span class="fc" id="L38">        return aforoSenderismo;</span>
+    }
+
+    public void setAforoSenderismo(int aforoSenderismo) throws Exception {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (aforoSenderismo &lt; 0) {</span>
+<span class="nc" id="L43">            throw new Exception(&quot;El aforo de senderismo no puede ser negativo.&quot;);</span>
+        }
+<span class="fc" id="L45">        this.aforoSenderismo = aforoSenderismo;</span>
+<span class="fc" id="L46">    }</span>
+
+    public boolean isTieneRestriccionesConfinamiento() {
+<span class="nc" id="L49">        return tieneRestriccionesConfinamiento;</span>
+    }
+
+    public void setTieneRestriccionesConfinamiento(boolean tieneRestriccionesConfinamiento) {
+<span class="fc" id="L53">        this.tieneRestriccionesConfinamiento = tieneRestriccionesConfinamiento;</span>
+<span class="fc" id="L54">    }</span>
+
+    public int getAforoEstablecimientos() {
+<span class="fc" id="L57">        return aforoEstablecimientos;</span>
+    }
+
+    public void setAforoEstablecimientos(int aforoEstablecimientos) throws Exception {
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (aforoEstablecimientos &lt; 0) {</span>
+<span class="nc" id="L62">            throw new Exception(&quot;El aforo de los establecimientos no puede ser negativo.&quot;);</span>
+        }
+<span class="fc" id="L64">        this.aforoEstablecimientos = aforoEstablecimientos;</span>
+<span class="fc" id="L65">    }</span>
+
+    public int getAforoPiscina() {
+<span class="nc" id="L68">        return aforoPiscina;</span>
+    }
+
+    public void setAforoPiscina(int aforoPiscina) throws Exception {
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        if (aforoPiscina &lt; 0) {</span>
+<span class="nc" id="L73">            throw new Exception(&quot;El aforo de la piscina no puede ser negativo.&quot;);</span>
+        }
+<span class="fc" id="L75">        this.aforoPiscina = aforoPiscina;</span>
+<span class="fc" id="L76">    }</span>
+
+    public PronosticoMeteorologico getPronostico() {
+<span class="fc" id="L79">        return pronostico;</span>
+    }
+
+    public void setPronostico(PronosticoMeteorologico pronostico) throws Exception {
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (pronostico == null) {</span>
+<span class="nc" id="L84">            throw new Exception(&quot;El pronóstico meteorológico no puede ser nulo.&quot;);</span>
+        }
+<span class="fc" id="L86">        this.pronostico = pronostico;</span>
+<span class="fc" id="L87">    }</span>
+
+    // Métodos auxiliares
+    public boolean esAforoEsquiDisponible() {
+<span class="fc" id="L91">        boolean res = false;</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (aforoEsqui &gt; 0) {</span>
+<span class="fc" id="L93">            res = true;</span>
+        }
+<span class="fc" id="L95">        return res;</span>
+    }
+
+    public boolean esAforoSenderismoDisponible() {
+<span class="fc" id="L99">        boolean res = false;</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (aforoSenderismo &gt; 0) {</span>
+<span class="fc" id="L101">            res = true;</span>
+        }
+<span class="fc" id="L103">        return res;</span>
+    }
+
+    public boolean esAforoEstablecimientosDisponible() {        
+<span class="fc" id="L107">        boolean res = false;</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (aforoEstablecimientos &gt; 0) {</span>
+<span class="fc" id="L109">            res = true;</span>
+        }
+<span class="fc" id="L111">        return res;</span>
+    }
+
+    public boolean esAforoPiscinaDisponible() {
+<span class="fc" id="L115">        boolean res = false;</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        if (aforoPiscina &gt; 0) {</span>
+<span class="fc" id="L117">            res = true;</span>
+        }
+<span class="fc" id="L119">        return res;</span>
+    }
+
+    public boolean tieneRestricciones() {
+<span class="nc" id="L123">        return tieneRestriccionesConfinamiento;</span>
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
